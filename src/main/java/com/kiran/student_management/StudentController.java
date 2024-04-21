@@ -1,19 +1,39 @@
 package com.kiran.student_management;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/students")
 public class StudentController {
-    @GetMapping("/home")
-    public  String hey(){
-        return "hello bhai";
-    }
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public  String getLost(){
-        return "get lost";
+
+    @Autowired
+    private StudentService studentService;
+
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
 
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable String id) {
+        return studentService.getStudentById(id);
+    }
+
+    @PostMapping
+    public void addStudent(@RequestBody Student student) {
+        studentService.addStudent(student);
+    }
+
+    @PutMapping("/{id}")
+    public void updateStudent(@PathVariable String id, @RequestBody Student updatedStudent) {
+        studentService.updateStudent(id, updatedStudent);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable String id) {
+        studentService.deleteStudent(id);
+    }
 }
