@@ -1,8 +1,7 @@
 package com.kiran.student_management.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.kiran.student_management.Student;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ExampleStudent {
@@ -10,5 +9,10 @@ public class ExampleStudent {
     @RequestMapping("/example")
     public  String go(){
         return "go";
+    }
+    @PostMapping("/studentdata")
+    public Student getStudent(@RequestBody Student student){
+        System.out.println("Student data: "+student);
+        return  student;
     }
 }
